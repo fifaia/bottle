@@ -41,7 +41,7 @@ function Pour(first_id, second_id) {
 	let ar_1 = first_id.split('b_')[1]-1;
 	let ar_2 = second_id.split('b_')[1]-1;
 
-	if (game[ar_1][game[ar_1].length-1] === game[ar_2][game[ar_2].length-1] && game[ar_1].length < 3) {
+	if (game[ar_1][game[ar_1].length-1] === game[ar_2][game[ar_2].length-1] && game[ar_1].length < 4) {
 		game[ar_1].push(game[ar_2][game[ar_2].length-1]);
 		game[ar_2].splice(game[ar_2].length-1, 1);
 		DrawBottle()
