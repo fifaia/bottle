@@ -45,7 +45,7 @@ function Pour(first_id, second_id) {
 		game[ar_1].push(game[ar_2][game[ar_2].length-1]);
 		game[ar_2].splice(game[ar_2].length-1, 1);
 		DrawBottle()
-	}else if (game[ar_1].length > 0){
+	}else if (game[ar_1].length == 0){
 		game[ar_1].push(game[ar_2][game[ar_2].length-1]);
 		game[ar_2].splice(game[ar_2].length-1, 1);
 		DrawBottle()
