@@ -20,19 +20,22 @@ function AddWoter() {
 AddWoter();
 
 function DrawBottle() {
-	active_id = '';
 	$('.box').empty()
+
 	for (var i = 0; i < 8; i++) {
 		let col_b = '';
 		for (var b = 0; b < game[i].length; b++) {
 			col_b += `<div class="col col-${b+1} ${game[i][b]}"></div>`;
 		}
-		$('.box').append(`<div class="bottle" id="b_${i+1}">
+		$('.box').append(`<div class="bottle ${game[i].length == 4?'full':''}" id="b_${i+1}">
 			<div class="bottle-im"></div>
 			${col_b}
 		</div>`)
 	}
-	$('.bottle').removeClass('b-active')
+
+	if (active_id != '') {
+		$(`#${active_id}`).addClass('b-active')
+	}
 }
 
 DrawBottle();
@@ -44,10 +47,12 @@ function Pour(first_id, second_id) {
 	if (game[ar_1][game[ar_1].length-1] === game[ar_2][game[ar_2].length-1] && game[ar_1].length < 4) {
 		game[ar_1].push(game[ar_2][game[ar_2].length-1]);
 		game[ar_2].splice(game[ar_2].length-1, 1);
+		active_id = '';
 		DrawBottle()
 	}else if (game[ar_1].length == 0){
 		game[ar_1].push(game[ar_2][game[ar_2].length-1]);
 		game[ar_2].splice(game[ar_2].length-1, 1);
+		active_id = '';
 		DrawBottle()
 	}
 	// console.log(game[ar_1][game[ar_1].length-1], game[ar_2][game[ar_2].length-1]);
@@ -56,19 +61,15 @@ function Pour(first_id, second_id) {
 
 
 $(document).on('click', '.bottle', function(){
-	if (active_id != '') {
+	if (active_id == '') {
+		active_id = $(this).attr('id');
+	}else if (active_id == $(this).attr('id')) {
+		active_id = '';
+	}else if (active_id != $(this).attr('id')) {
 		Pour(active_id, $(this).attr('id'))
 	}
-
-	if (!$(this).hasClass('b-active')) {
-		$(this).addClass('b-active')
-		active_id = $(this).attr('id')
-	}else{
-		$(this).removeClass('b-active')
-		active_id = '';
-	}
-	// DrawBottle()
-
 	
-	console.log(active_id)
+
+	DrawBottle()
+	
 })
