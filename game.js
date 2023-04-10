@@ -27,10 +27,11 @@ function DrawBottle() {
 		for (var b = 0; b < game[i].length; b++) {
 			col_b += `<div class="col col-${b+1} ${game[i][b]}"></div>`;
 		}
-		$('.box').append(`<div class="bottle ${game[i].length == 4?'full':''}" id="b_${i+1}">
+		$('.box').append(`<div class="bottle ${IdentyFullArray(game[i])?'full':''}" id="b_${i+1}">
 			<div class="bottle-im"></div>
 			${col_b}
 		</div>`)
+		IdentyFullArray(game[i])
 	}
 
 	if (active_id != '') {
@@ -39,6 +40,19 @@ function DrawBottle() {
 }
 
 DrawBottle();
+
+function IdentyFullArray(ar) {
+	if (ar.length == 4) {
+		let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) !== index)
+		if (findDuplicates(ar).length == 3) {
+			return true
+		}else{
+			return false;
+		}
+	}else{
+		return false;
+	}
+}
 
 function Pour(first_id, second_id) {
 	let ar_1 = first_id.split('b_')[1]-1;
