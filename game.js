@@ -4,18 +4,56 @@ function random(min, max) {
 
 let game = [[],[],[],[],[],[],[],[]];
 let active_id = '';
-let colors = ['red', 'green', 'yellow', 'blue'];
+let colors = [];
+
+
+function returncolors() {
+	let ar = [];
+	for (var i = 0; i < 8; i++) {
+		colors.push('red');
+		colors.push('green');
+		colors.push('yellow');
+		if (i > 3) {
+			colors.push('blue');
+		}
+	}
+
+}
+
+returncolors();
+
+shuffle(colors);
+
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
 
 function AddWoter() {
-	for (var i = 0; i < 8; i++) {
-		let r = random(1, 4);
-		for (var b = 0; b < r; b++) {
-			game[i].push(colors[random(0, colors.length-1)])
+	for (var i = 0; i < 7; i++) {
+		for (var b = 0; b < 4; b++) {
+			let x = random(0, colors.length-1);
+			game[i].push(colors[x])
+			colors.splice(x, 1);
 		}
 	}
 
 	console.log(game)
 }
+
 
 AddWoter();
 
@@ -80,6 +118,12 @@ function resetgame() {
 	AddWoter();
 
 	DrawBottle();
+
+	colors = [];
+
+	returncolors();
+
+	shuffle(colors);
 }
 
 $(document).on('click', '.bottle', function(){
