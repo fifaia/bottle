@@ -124,3 +124,21 @@
     top: 282px;
     left: 338px;
 }
+
+.resetgame{
+    position: absolute;
+    right: 6px;
+    top: 10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50px;
+    background-image: url(image/reset.png);
+    background-size: cover;
+    cursor: pointer;
+    opacity: 0.7;
+    background-color: red;
+}
+
+.resetgame:hover{
+	opacity: 1;
+}

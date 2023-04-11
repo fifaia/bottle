@@ -21,7 +21,7 @@ AddWoter();
 
 function DrawBottle() {
 	$('.box').empty()
-
+	$('.box').append(`<div class="resetgame" onclick="resetgame()"></div>`)
 	for (var i = 0; i < 8; i++) {
 		let col_b = '';
 		for (var b = 0; b < game[i].length; b++) {
@@ -73,6 +73,14 @@ function Pour(first_id, second_id) {
 
 }
 
+function resetgame() {
+	game = [[],[],[],[],[],[],[],[]];
+	active_id = '';
+
+	AddWoter();
+
+	DrawBottle();
+}
 
 $(document).on('click', '.bottle', function(){
 	if (active_id == '') {
