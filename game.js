@@ -107,6 +107,7 @@ function Pour(first_id, second_id) {
 		active_id = '';
 		DrawBottle()
 	}
+	countPossibleMove()
 	// console.log(game[ar_1][game[ar_1].length-1], game[ar_2][game[ar_2].length-1]);
 
 }
@@ -124,6 +125,25 @@ function resetgame() {
 	returncolors();
 
 	shuffle(colors);
+}
+
+function countPossibleMove() {
+	let lastColor = [];
+	let countMove = 0;
+	for (var i = 0; i < game.length; i++) {
+		if (game[i].length == 0) {
+			countMove++;
+		}else {
+			lastColor.push(game[i][game[i].length-1]); 
+		}
+	}
+
+
+	const counts = {};
+	lastColor.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+	// return lastColor;
+	console.log(counts)
+	console.log(lastColor);
 }
 
 $(document).on('click', '.bottle', function(){
