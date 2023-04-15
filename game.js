@@ -5,7 +5,7 @@ function random(min, max) {
 let game = [[],[],[],[],[],[],[],[]];
 let active_id = '';
 let colors = [];
-
+let countMove = 0;
 
 function returncolors() {
 	let ar = [];
@@ -60,6 +60,7 @@ AddWoter();
 function DrawBottle() {
 	$('.box').empty()
 	$('.box').append(`<div class="resetgame" onclick="resetgame()"></div>`)
+	$('.box').append(`<div class="possiblemoves">Poss Moves: ${countMove}</div>`)
 	for (var i = 0; i < 8; i++) {
 		let col_b = '';
 		for (var b = 0; b < game[i].length; b++) {
@@ -128,22 +129,36 @@ function resetgame() {
 }
 
 function countPossibleMove() {
-	let lastColor = [];
-	let countMove = 0;
+	let data = [];
+	countMove = 0;
+	let indexes = [];
 	for (var i = 0; i < game.length; i++) {
 		if (game[i].length == 0) {
-			countMove++;
-		}else {
-			lastColor.push(game[i][game[i].length-1]); 
+			data.push({'index': i, 'color': 'free'})
+		}else if (game[i].length < 4) {
+			data.push({'index': i, 'color': game[i][game[i].length-1]})
 		}
 	}
 
+	for (var i = 0; i < data.length; i++) {
+		for (var b = 0; b < game.length; b++) {
+			if (game[b].length > 0 && !IdentyFullArray(game[b])) {
+				if (data[i].color == game[b][game[b].length-1] && data[i].index != b) {
+					countMove++;
+					indexes.push([data[i].index, b])
+				}else if (data[i].color == 'free'){
+					countMove++;
+					indexes.push([data[i].index, b])
+				}
+			}
+		}
+	}
 
-	const counts = {};
-	lastColor.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
-	// return lastColor;
-	console.log(counts)
-	console.log(lastColor);
+	$('.box').append(`<div class="possiblemoves">Poss Moves: ${countMove}</div>`)
+
+	console.log(indexes)
+	console.log(data);
+	console.log(countMove);
 }
 
 $(document).on('click', '.bottle', function(){

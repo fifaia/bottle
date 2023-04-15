@@ -142,3 +142,11 @@
 .resetgame:hover{
 	opacity: 1;
 }
+
+.possiblemoves{
+    position: absolute;
+    left: 196px;
+    top: 188px;
+    font-size: 20px;
+    color: white;
+}
